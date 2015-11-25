@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <title>nsfw - シンプルフレームワーク</title>
     <!-- CSS -->
-  <link rel="stylesheet" href="../views/assets/css/bootstrap.css">
-  <link rel="stylesheet" href="../views/assets/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="../views/assets/css/form.css">
-  <link rel="stylesheet" href="../views/assets/css/timeline.css">
-  <link rel="stylesheet" href="../views/assets/css/main.css">
+  <link rel="stylesheet" href="/blog/views/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="/blog/views/assets/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/blog/views/assets/css/form.css">
+  <link rel="stylesheet" href="/blog/views/assets/css/timeline.css">
+  <link rel="stylesheet" href="/blog/views/assets/css/main.css">
 </head>
 <body>
   <h1>Blogシステム<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></h1>

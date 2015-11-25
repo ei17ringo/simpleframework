@@ -12,10 +12,12 @@
             $this->plural_resource = $plural_resource;
         }
 
-        public function index() {
+        public function index($category_id) {
+            var_dump($category_id);
             // Blogクラスから$Blogインスタンス生成
             $Blog = new Blog($this->plural_resource);
-            $sql = $Blog->findAll(); // 'SELECT * FROM blogs'という文字列が返ってくる
+
+            $sql = $Blog->findAll($category_id); // 'SELECT * FROM blogs'という文字列が返ってくる
 
             $blogs = mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
             //var_dump($blogs);
@@ -52,6 +54,11 @@
                 mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
 
                 header("Location: index");
+            }else{
+                $return['categories'] = $categories;
+
+                return $return;
+
             }
         }
 

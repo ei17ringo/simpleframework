@@ -12,9 +12,13 @@
             $this->plural_resource = $plural_resource;
         }
 
-        public function findAll() {
+        public function findAll($id = null) {
             // データを取得する (model)
-            $sql = 'SELECT * FROM ' . $this->plural_resource;
+            if(empty($id)){
+                $sql = 'SELECT * FROM ' . $this->plural_resource;
+            }else{
+                $sql = 'SELECT * FROM ' . $this->plural_resource.' WHERE category_id='.$id;
+            }
             return $sql;
         }
 
@@ -28,8 +32,9 @@
         }
 
         public function create($blog) {
-            $sql = sprintf('INSERT INTO %s SET title="%s", body="%s", created=NOW()',
+            $sql = sprintf('INSERT INTO %s SET category_id= %d, title="%s", body="%s", created=NOW()',
                 $this->plural_resource,
+                $blog['category_id'],
                 $blog['title'],
                 $blog['body']
             );
@@ -38,8 +43,9 @@
         }
 
         public function update($blog) {
-            $sql = sprintf('UPDATE %s SET title="%s", body="%s", modified=NOW() WHERE id=%s',
+            $sql = sprintf('UPDATE %s SET category_id= %d,title="%s", body="%s", modified=NOW() WHERE id=%s',
                 $this->plural_resource,
+                $blog['category_id'],
                 $blog['title'],
                 $blog['body'],
                 $blog['id']
