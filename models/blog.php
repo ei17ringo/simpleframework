@@ -12,10 +12,13 @@
             $this->plural_resource = $plural_resource;
         }
 
-        public function findAll($id = null) {
+        public function findAll($id = null ,$search_text= null) {
             // データを取得する (model)
             if(empty($id)){
                 $sql = 'SELECT * FROM ' . $this->plural_resource;
+
+                //ここに$search_textが指定された場合のselect文を記述して下さい
+                
             }else{
                 $sql = 'SELECT * FROM ' . $this->plural_resource.' WHERE category_id='.$id;
             }

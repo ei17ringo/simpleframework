@@ -14,10 +14,16 @@
 
         public function index($category_id) {
             var_dump($_GET['search']);
+
+
             // Blogクラスから$Blogインスタンス生成
             $Blog = new Blog($this->plural_resource);
 
-            $sql = $Blog->findAll($category_id); // 'SELECT * FROM blogs'という文字列が返ってくる
+            if (isset($_GET['search'])){
+                $sql = $Blog->findAll($category_id,$_GET['search']);
+            }else{
+                $sql = $Blog->findAll($category_id); // 'SELECT * FROM blogs'という文字列が返ってくる
+            }
 
             $blogs = mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
             //var_dump($blogs);
