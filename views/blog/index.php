@@ -13,21 +13,24 @@
       $categories[]=$category;
     endwhile;
 
+    $title = '記事一覧';
+
     foreach ($categories as $cat_each) {
       if ($cat_each['id'] == $id){
         $title = $cat_each['title'].'の記事一覧';
+        break;
       }
     }
 ?>
 
-<h2>記事一覧</h2>
+<h2><?php echo $title; ?></h2>
 <div class="row">
   <div class="col-lg-6">
     <div class="input-group">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
+        <button class="btn btn-default" type="button" onclick="location.href='/blog/blog/index?search='+document.getElementById('search_text').value;">Go!</button>
       </span>
-      <input type="text" class="form-control" placeholder="Search for...">
+      <input type="text" id="search_text" class="form-control" placeholder="Search for...">
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
 </div>
@@ -50,11 +53,11 @@
   </div>
   <div class="col-xs-6">
     <ul>
-      <?php while ($category = mysqli_fetch_assoc($blogs['categories'])): ?>
+      <?php foreach ($categories as $cat_each) { ?>
       <li>
-        <?php echo link_to('/blog/blog/index/'.$category['id'] ,$category['title']); ?>
+        <?php echo link_to('/blog/blog/index/'.$cat_each['id'] ,$cat_each['title']); ?>
       </li>
-      <?php endwhile; ?>
+      <?php } ?>
     </ul>
   </div>
 </div>

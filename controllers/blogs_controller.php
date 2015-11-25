@@ -13,7 +13,7 @@
         }
 
         public function index($category_id) {
-            var_dump($category_id);
+            var_dump($_GET['search']);
             // Blogクラスから$Blogインスタンス生成
             $Blog = new Blog($this->plural_resource);
 
