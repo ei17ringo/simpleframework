@@ -21,6 +21,37 @@
         break;
       }
     }
+
+    //ページング
+    //ページ番号を取得する
+    $page = $_REQUEST['page'];
+    if ($page == ''){
+      $page =1;
+    }
+
+    $page = max($page,1);
+
+    // 最終ページ番号を取得する
+    //カテゴリーデータを全て配列に保存しておく
+    $cnt = 0;
+    while ($blog_each = mysqli_fetch_assoc($blogs['blogs'])): 
+      //配列として1データずつ追加保存
+      $blog_array[]=$blog_each;
+      $cnt++;
+    endwhile;
+
+    $maxPage = ceil($cnt / 5);
+    $page = min($page, $maxPage);
+
+    $start = ($page - 1) * 5;
+    $start = max(0, $start);
+
+    $blog_for_display = array();
+    //表示したいブログ記事だけを抽出
+    $end = $start+5;
+    for ($i=$start; $i < $end; $i++) { 
+      $blog_for_display[]=$blog_array[$i];
+    }
 ?>
 
 <h2><?php echo $title; ?></h2>
@@ -40,16 +71,16 @@
 </div>
 <div class="row">
   <div class="col-xs-6">
-    <?php while ($blog = mysqli_fetch_assoc($blogs['blogs'])): ?>
+    <?php foreach ($blog_for_display as $blog_each) { ?>
         <ul>
           <li>
-            <?php echo $blog['title']; ?> : 
-            【<?php echo link_to('show/' . $blog['id'], '詳細'); ?>】/
-            【<?php echo link_to('edit/' . $blog['id'], '編集'); ?>】/
-            【<?php echo link_to('delete/' . $blog['id'], '削除'); ?>】
+            <?php echo $blog_each['title']; ?> : 
+            【<?php echo link_to('/blog/blog/show/' . $blog_each['id'], '詳細'); ?>】/
+            【<?php echo link_to('/blog/blog/edit/' . $blog_each['id'], '編集'); ?>】/
+            【<?php echo link_to('/blog/blog/delete/' . $blog_each['id'], '削除'); ?>】
           </li>
         </ul>
-    <?php endwhile; ?>
+    <?php } ?>
   </div>
   <div class="col-xs-6">
     <ul>

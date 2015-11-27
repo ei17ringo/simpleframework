@@ -18,6 +18,10 @@
                 $sql = 'SELECT * FROM ' . $this->plural_resource;
 
                 //ここに$search_textが指定された場合のselect文を記述して下さい
+                if (!empty($search_text)){
+                    $sql = 'SELECT * FROM ' . $this->plural_resource
+                    $sql .=' WHERE title LIKE \'%'.$search_text.'%\'';
+                }
                 
             }else{
                 $sql = 'SELECT * FROM ' . $this->plural_resource.' WHERE category_id='.$id;

@@ -25,6 +25,7 @@
                 $sql = $Blog->findAll($category_id); // 'SELECT * FROM blogs'という文字列が返ってくる
             }
 
+            var_dump($sql);
             $blogs = mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
             //var_dump($blogs);
             //var_dump('test');
