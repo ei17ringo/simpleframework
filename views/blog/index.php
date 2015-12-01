@@ -22,14 +22,14 @@
       }
     }
 
-    //ページング
-    //ページ番号を取得する
-    $page = $_REQUEST['page'];
-    if ($page == ''){
-      $page =1;
-    }
 
-    $page = max($page,1);
+    // //ページ番号を取得する
+    // $page = $_REQUEST['page'];
+    // if ($page == ''){
+    //   $page =1;
+    // }
+
+    // $page = max($page,1);
 
     // 最終ページ番号を取得する
     //カテゴリーデータを全て配列に保存しておく
@@ -40,15 +40,22 @@
       $cnt++;
     endwhile;
 
-    $maxPage = ceil($cnt / 5);
-    $page = min($page, $maxPage);
+    //ページング
+    $pager=pager($_REQUEST['page'],$cnt);
+    $page = $pager['page'];
+    $maxPage = $pager['maxPage'];
+    $start = $pager['start'];
+    $end = $pager['end'];
 
-    $start = ($page - 1) * 5;
-    $start = max(0, $start);
+    // $maxPage = ceil($cnt / 5);
+    // $page = min($page, $maxPage);
+
+    // $start = ($page - 1) * 5;
+    // $start = max(0, $start);
 
     $blog_for_display = array();
     //表示したいブログ記事だけを抽出
-    $end = $start+5;
+    // $end = $start+5;
     for ($i=$start; $i < $end; $i++) { 
       $blog_for_display[]=$blog_array[$i];
     }
@@ -81,6 +88,24 @@
           </li>
         </ul>
     <?php } ?>
+    <div>
+      <ul class="pager">
+        <li>
+          <?php if ($page > 1){ ?>
+            <a href="/blog/blog/index/?page=<?php echo $page-1; ?>">前のページ</a>
+          <?php }else{ ?>  
+            前のページ
+          <?php } ?>
+        </li>
+        <li>
+          <?php if ($page < $maxPage){ ?>
+            <a href="/blog/blog/index/?page=<?php echo $page+1; ?>">次のページ</a>
+          <?php }else{ ?>  
+            次のページ
+          <?php } ?>  
+        </li>
+      </ul>
+    </div>
   </div>
   <div class="col-xs-6">
     <ul>
