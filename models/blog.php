@@ -14,17 +14,20 @@
 
         public function findAll($id = null ,$search_text= null) {
             // データを取得する (model)
+            //var_dump($this->plural_resource);
+
+            $sql_join = ' left OUTER JOIN (SELECT `post_id`,`member_id` FROM `favorites` WHERE `favorites`.`member_id`= 2) `fb` ON `blogs`.`id` = `fb`.`post_id`';
             if(empty($id)){
-                $sql = 'SELECT * FROM ' . $this->plural_resource;
+                $sql = 'SELECT * FROM ' . $this->plural_resource .$sql_join;
 
                 //ここに$search_textが指定された場合のselect文を記述して下さい
                 if (!empty($search_text)){
-                    $sql = 'SELECT * FROM ' . $this->plural_resource
+                    $sql = 'SELECT * FROM ' . $this->plural_resource .$sql_join;
                     $sql .=' WHERE title LIKE \'%'.$search_text.'%\'';
                 }
                 
             }else{
-                $sql = 'SELECT * FROM ' . $this->plural_resource.' WHERE category_id='.$id;
+                $sql = 'SELECT * FROM ' . $this->plural_resource.$sql_join.' WHERE category_id='.$id;
             }
             return $sql;
         }

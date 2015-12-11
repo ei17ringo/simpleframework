@@ -12,8 +12,18 @@
             $this->plural_resource = $plural_resource;
         }
 
+        public function fbset($post_id){
+
+            $sql ="INSERT INTO `favorites`(`post_id`,`member_id`)VALUES(".$post_id.",2);";
+            mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
+
+            header("Location: ../index");   
+        }
+
+
+
         public function index($category_id) {
-            var_dump($_GET['search']);
+            //var_dump($_GET['search']);
 
 
             // Blogクラスから$Blogインスタンス生成
@@ -25,7 +35,7 @@
                 $sql = $Blog->findAll($category_id); // 'SELECT * FROM blogs'という文字列が返ってくる
             }
 
-            var_dump($sql);
+            //var_dump($sql);
             $blogs = mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
             //var_dump($blogs);
             //var_dump('test');

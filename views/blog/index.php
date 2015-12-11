@@ -24,10 +24,15 @@
 
 
     // //ページ番号を取得する
-    $page = $_REQUEST['page'];
-    if ($page == ''){
-      $page =1;
-    }
+    if (isset($_REQUEST['page')){
+      $page = $_REQUEST['page'];
+      if ($page == ''){
+        $page =1;
+      }
+
+    }else{
+      $page = 1;
+    
 
     $page = max($page,1);
 
@@ -57,7 +62,9 @@
     //表示したいブログ記事だけを抽出
     $end = $start+5;
     for ($i=$start; $i < $end; $i++) { 
-      $blog_for_display[]=$blog_array[$i];
+      if (isset($blog_array[$i])){
+        $blog_for_display[]=$blog_array[$i];
+      }
     }
 ?>
 
@@ -85,7 +92,15 @@
             【<?php echo link_to('/blog/blog/show/' . $blog_each['id'], '詳細'); ?>】/
             【<?php echo link_to('/blog/blog/edit/' . $blog_each['id'], '編集'); ?>】/
             【<?php echo link_to('/blog/blog/delete/' . $blog_each['id'], '削除'); ?>】
-            <button><i class="fa fa-star-o"></i>お気に入り</button>
+            <?php if ($blog_each['id'] == $blog_each['post_id']){ ?>
+              <form method="post" action="/blog/blog/fbremove/<?php echo $blog_each['id']; ?>">
+                <button class="btn btn-warning" type="submit"><i class="fa fa-star-o"></i>解除</button>
+              </form>
+            <?php }else{ ?>
+              <form method="post" action="/blog/blog/fbset/<?php echo $blog_each['id']; ?>">
+                <button class="btn btn-success" type="submit"><i class="fa fa-star-o"></i>お気に入り</button>
+              </form>  
+            <?php } ?>
           </li>
         </ul>
     <?php } ?>
