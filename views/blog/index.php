@@ -24,12 +24,12 @@
 
 
     // //ページ番号を取得する
-    // $page = $_REQUEST['page'];
-    // if ($page == ''){
-    //   $page =1;
-    // }
+    $page = $_REQUEST['page'];
+    if ($page == ''){
+      $page =1;
+    }
 
-    // $page = max($page,1);
+    $page = max($page,1);
 
     // 最終ページ番号を取得する
     //カテゴリーデータを全て配列に保存しておく
@@ -41,21 +41,21 @@
     endwhile;
 
     //ページング
-    $pager=pager($_REQUEST['page'],$cnt);
-    $page = $pager['page'];
-    $maxPage = $pager['maxPage'];
-    $start = $pager['start'];
-    $end = $pager['end'];
+    // $pager=pager($_REQUEST['page'],$cnt);
+    // $page = $pager['page'];
+    // $maxPage = $pager['maxPage'];
+    // $start = $pager['start'];
+    // $end = $pager['end'];
 
-    // $maxPage = ceil($cnt / 5);
-    // $page = min($page, $maxPage);
+    $maxPage = ceil($cnt / 5);
+    $page = min($page, $maxPage);
 
-    // $start = ($page - 1) * 5;
-    // $start = max(0, $start);
+    $start = ($page - 1) * 5;
+    $start = max(0, $start);
 
     $blog_for_display = array();
     //表示したいブログ記事だけを抽出
-    // $end = $start+5;
+    $end = $start+5;
     for ($i=$start; $i < $end; $i++) { 
       $blog_for_display[]=$blog_array[$i];
     }
@@ -85,6 +85,7 @@
             【<?php echo link_to('/blog/blog/show/' . $blog_each['id'], '詳細'); ?>】/
             【<?php echo link_to('/blog/blog/edit/' . $blog_each['id'], '編集'); ?>】/
             【<?php echo link_to('/blog/blog/delete/' . $blog_each['id'], '削除'); ?>】
+            <button><i class="fa fa-star-o"></i>お気に入り</button>
           </li>
         </ul>
     <?php } ?>
